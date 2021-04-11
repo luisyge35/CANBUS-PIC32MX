@@ -843,10 +843,33 @@ void CAN1_InterruptHandler(void)
     else{
         C1FIFOCON1SET = 0x2000;
         C1FIFOCON1SET = 0x00004000; /* Set the FRESET bit */
-        //while(C1FIFOCON1bits.FRESET == 1);
-        //while(C1FIFOINT1bits.RXNEMPTYIF == 1);
         IFS2bits.CAN1IF = 0;
-        //LED_Toggle();
+        // Read the message
+        rxMessage = (CAN_TX_RX_MSG_BUFFER *)PA_TO_KVA1(*(volatile uint32_t *)(&C1FIFOUA0 + (fifoNum * CAN_FIFO_OFFSET)));
+        fifoNum = fifoNum + 1;
+        Nop();
+        /*
+         if (can1RxMsg[fifoNum][msgIndex].buffer != NULL){
+            *can1RxMsg[fifoNum][msgIndex].id = rxMessage->msgSID & CAN_MSG_SID_MASK;
+            if (rxMessage->msgEID & CAN_MSG_SRR_MASK){
+                *can1RxMsg[fifoNum][msgIndex].msgAttr = CAN_MSG_RX_REMOTE_FRAME;
+            }
+            else
+            {
+            *can1RxMsg[fifoNum][msgIndex].msgAttr = CAN_MSG_RX_DATA_FRAME;
+            }
+            *can1RxMsg[fifoNum][msgIndex].size = rxMessage->msgEID & CAN_MSG_DLC_MASK;
+            // Copy the data into the payload 
+            while (count < *can1RxMsg[fifoNum][msgIndex].size){
+                *can1RxMsg[fifoNum][msgIndex].buffer++ = rxMessage->msgData[count++];
+            }
+            if (can1RxMsg[fifoNum][msgIndex].timestamp != NULL){
+                *can1RxMsg[fifoNum][msgIndex].timestamp = (rxMessage->msgSID & CAN_MSG_TIMESTAMP_MASK) >> 16;
+            }
+        }
+        // Message processing is done, update the message buffer pointer. 
+        *(volatile uint32_t *)(&C1FIFOCON0SET + (fifoNum * CAN_FIFO_OFFSET)) = _C1FIFOCON0_UINC_MASK;*/
+        }
     }
    /* {
         can1Obj.errorStatus = 0;
@@ -930,4 +953,4 @@ void CAN1_InterruptHandler(void)
             }
         }
     }*/
-}
+//}

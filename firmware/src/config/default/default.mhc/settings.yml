@@ -5,7 +5,7 @@ frameworkPath: ../../Harmony3
 processor: PIC32MX570F512L
 projectName: CanBus
 settings:
-  PackageFilter: bt;csp;bootloader;csp_apps_pic32mx;net;touch;audio;reference_apps;core_apps_pic32mx;usb;quick_docs;gfx;bootloader_apps_uart;crypto;wireless;bsp;core;
+  PackageFilter: gfx;csp_apps_pic32mx;wireless;crypto;usb;core;csp;reference_apps;bootloader_apps_uart;net;touch;quick_docs;bsp;bootloader;audio;core_apps_pic32mx;bt;
   FORCE_OPTIMIZATION: 'false'
   GENERATE_BACKUP: 'true'
   TRUSTZONE: 'false'
